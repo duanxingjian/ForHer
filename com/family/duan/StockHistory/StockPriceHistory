@@ -1,0 +1,15 @@
+#https://stackoverflow.com/questions/12433076/download-history-stock-prices-automatically-from-yahoo-finance-in-python
+
+import pandas_datareader as pdr
+from datetime import datetime
+
+symbol_list = ['IBM', 'GOOGL', 'AAPL']
+
+# for symbol in symbol_list:
+#     prices = pdr.get_data_yahoo(symbols=symbol, start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
+#     print(prices.head(5)['Adj Close'])
+#     prices.to_csv('c:/temp/' + symbol + '.csv', header=True)
+
+# yahoo api is inconsistent for getting historical data, please use google instead.
+aapl = pdr.DataReader('AAPL', 'google', start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
+print(aapl['Adj Close'])
