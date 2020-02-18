@@ -1,15 +1,27 @@
 #https://stackoverflow.com/questions/12433076/download-history-stock-prices-automatically-from-yahoo-finance-in-python
 
+import pandas as pd
 import pandas_datareader as pdr
 from datetime import datetime
 
 symbol_list = ['IBM', 'GOOGL', 'AAPL']
 
-# for symbol in symbol_list:
-#     prices = pdr.get_data_yahoo(symbols=symbol, start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
-#     print(prices.head(5)['Adj Close'])
-#     prices.to_csv('c:/temp/' + symbol + '.csv', header=True)
+for symbol in symbol_list:
+    prices = pdr.get_data_yahoo(symbols=symbol, start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
+    print(prices.head(5)['Adj Close'])
+    prices.to_csv('c:/temp/' + symbol + '.csv', header=True)
 
 # yahoo api is inconsistent for getting historical data, please use google instead.
-aapl = pdr.DataReader('AAPL', 'google', start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
-print(aapl['Adj Close'])
+# aapl = pdr.DataReader('AAPL', 'google', start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
+# print(aapl['Adj Close'])
+
+sp500data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+table = sp500data[0]
+table.head()
+
+# get rid of top index
+sliced_table = table[1:]
+header = table.iloc[0]
+
+corrected_table = sliced_table.rename(columns=header)
+print(corrected_table.head())
