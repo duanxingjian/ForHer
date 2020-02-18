@@ -15,6 +15,7 @@ for symbol in symbol_list:
 # aapl = pdr.DataReader('AAPL', 'google', start=datetime(2019, 1, 1), end=datetime(2020, 1, 1))
 # print(aapl['Adj Close'])
 
+# https://medium.com/python-data/how-to-scrape-information-of-s-p-500-listed-companies-with-python-8205f895ee7a
 sp500data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
 table = sp500data[0]
 table.head()
@@ -25,3 +26,5 @@ header = table.iloc[0]
 
 corrected_table = sliced_table.rename(columns=header)
 print(corrected_table.head())
+tickers = corrected_table['Ticker symbol'].tolist()
+print (tickers.head())
